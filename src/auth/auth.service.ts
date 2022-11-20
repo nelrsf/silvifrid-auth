@@ -18,6 +18,9 @@ export class AuthService {
         return this.admUserService.findOne(userName).then(
             (user):boolean => {
                 this.user = user[0];
+                if(!this.user){
+                    return false;
+                }
                 return this.validateUser(password);
             }
         ).catch(
@@ -28,9 +31,6 @@ export class AuthService {
     }
 
     validateUser(password: string) {
-        console.log("db",this.user.password)
-        console.log("front",password)
-        console.log("result",bcryptjs.compareSync(this.user.password, password))
         return bcryptjs.compareSync(this.user.password, password);
     }
 
