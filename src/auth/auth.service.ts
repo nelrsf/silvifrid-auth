@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AdmUsersService } from 'src/adm-users/adm-users.service';
 import { AdmUser } from 'src/adm-users/schemas/adm-user.schema';
+import * as bcryptjs from "bcryptjs";
 
 @Injectable()
 export class AuthService {
@@ -27,12 +28,7 @@ export class AuthService {
     }
 
     validateUser(password: string) {
-        if (this.user?.password === password) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return bcryptjs.compareSync(password, this.user.password);
     }
 
     login(user: AdmUser){
