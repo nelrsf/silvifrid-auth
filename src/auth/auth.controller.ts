@@ -9,6 +9,7 @@ export class AuthController {
 
   @Post()
   async authUser(@Body() user: AdmUser) {
+    console.log(user)
     let result = await this.authService.authenticate(user.userName, user.password);
     if (result) {
       return this.authService.login(user);
