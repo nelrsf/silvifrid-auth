@@ -28,7 +28,7 @@ export class AuthService {
     }
 
     validateUser(password: string) {
-        return bcryptjs.compareSync(password, this.user.password);
+        return bcryptjs.compareSync(this.user.password, password);
     }
 
     login(user: AdmUser){
